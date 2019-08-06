@@ -1,13 +1,14 @@
 {
   "pages": [
+    "pages/listForm/main",
+    "pages/search/main",
     "pages/index/main",
-  
     "pages/counter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "一面而就",
     "navigationBarTextStyle": "black"
   }
   
