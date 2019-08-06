@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/personal/main",
+    "pages/assistant/main",
     "pages/listForm/main",
     "pages/search/main",
     "pages/index/main",
