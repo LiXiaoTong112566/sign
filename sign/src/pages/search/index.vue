@@ -2,35 +2,26 @@
     <div>
         <div class="address">
             <span>北京</span>
-            <input type="text" value="北京八维">
+            <input type="text" v-model="site" @input="getaddress()">
         </div>
         <div class="addlist">
-            <div class="list">
+            <div class="list" v-for="item in search" :key="item.id">
                 <span class="iconfont icon-zhifeiji"></span>
                 <div>
                     <div>
-                      北京八维教育软工学院    
+                        {{item.title}}
                     </div>
                     <div class="detail">
-                        北京海淀区上地软件元南路57号
+                         {{item.address}} 
                     </div>
                 </div>
             </div>
-            <div class="list">
-                <span class="iconfont icon-zhifeiji"></span>
-                <div>
-                    <div>
-                      北京八维教育软工学院    
-                    </div>
-                    <div class="detail">
-                        北京海淀区上地软件元南路57号
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </template>
 <script>
+import {mapState,mapActions} from "vuex";
 
 export default {
     props:{
@@ -41,20 +32,27 @@ export default {
     },
     data(){
         return {
-
+         site:""
         }
     },
     computed:{
-
+       ...mapState ({
+           search :state=>state.address.search
+       })
     },
     methods:{
-
+       ...mapActions({
+           getSuggestion:"address/getSuggestion"
+       }),
+       getaddress(){
+           this.getSuggestion(this.site)
+       }
     },
     created(){
-
+       
     },
     mounted(){
-
+       
     }
 }
 </script>
@@ -79,7 +77,6 @@ export default {
 }
 .list{
     width: 100%;
-    height:50px;
     border-bottom: 1px solid #eee;
     display:flex;
 }

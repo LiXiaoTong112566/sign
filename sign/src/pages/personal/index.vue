@@ -4,17 +4,21 @@
             <dt class="iconfont icon-04f"></dt>
             <dd>175555</dd>
         </dl>
-        <div class="uesrList">
-            <div>
-                <i class="iconfont icon-shijian"></i>
-                <span class="subject">我的面试</span>
-                <span>&gt;</span>
-            </div>
-            <div>
-                <i class="iconfont icon-gantanhao1"></i>
-                <span class="subject">我的面试</span>
-                <span>&gt;</span>
-            </div>
+        <div class="uesrList"> 
+            <!-- <navigator url="/pages/interviewlist/main"> -->
+                <div @click="goto">
+                    <i class="iconfont icon-shijian"></i>
+                    <span class="subject">我的面试</span> 
+                    <span>&gt;</span>
+                </div>
+            <!-- </navigator> -->
+            <navigator url="/pages/assistant/main">
+                <div>
+                    <i class="iconfont icon-gantanhao1"></i>
+                    <span class="subject">客服中心</span>
+                    <span>&gt;</span>
+                </div> 
+            </navigator>
         </div>
     </div>
 </template>
@@ -35,7 +39,10 @@ export default {
 
     },
     methods:{
-
+     goto(){
+         const url = "/pages/interviewIist/main";
+         mpvue.navigateTo({url})
+     }
     },
     created(){
 

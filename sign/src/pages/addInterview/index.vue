@@ -25,7 +25,9 @@
       <dl>
         <dt>面试地址</dt>
         <dd>
-          <input type="text" placeholder="请输入公司名称" />
+            <navigator url="/pages/search/main">
+                <input type="text" placeholder="请输入公司名称" />
+            </navigator>
         </dd>
       </dl>
     </div>

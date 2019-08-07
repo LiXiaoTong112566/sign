@@ -1,13 +1,13 @@
 {
   "pages": [
-     "pages/home/main",
-    "pages/addInterview/main",
-     "pages/search/main",
-    "pages/personal/main",
-    "pages/interviewIist/main",
-    "pages/assistant/main",
-    "pages/listForm/main",
-    "pages/counter/main"
+      "pages/home/main",
+      "pages/interviewIist/main",
+      "pages/addInterview/main",
+      "pages/search/main",
+      "pages/personal/main",
+      "pages/assistant/main",
+      "pages/listForm/main",
+      "pages/counter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
