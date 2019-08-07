@@ -18,7 +18,8 @@
       <dl>
         <dt>面试时间</dt>
         <dd>
-          <input type="text" placeholder="请输入公司名称" />
+          <input type="text" placeholder="2019-08-06 17:00" />
+          <span class="iconfont icon-gantanhao1"></span>
         </dd>
       </dl>
       <dl>
@@ -37,7 +38,6 @@
     </div>
 
     <button class="btn">确认</button>
-    <!-- <i-button type="primary">这是一个按钮</i-button> -->
 
     <div class="mask">
       <div class="maskBox">
@@ -45,7 +45,8 @@
         <p>添加面试成功</p>
         <div>确定</div>
       </div>
-    </div>
+    </div>    
+
   </div>
 </template>
 <script>
@@ -85,9 +86,7 @@ export default {
   dl {
     width: 100%;
     display: flex;
-
     border-bottom: 1px solid #ccc;
-
     dt {
       padding: 30rpx 10rpx;
     }
@@ -97,6 +96,12 @@ export default {
       input{
         position: absolute;
         z-index:1;
+      }
+      .iconfont{
+        position: absolute;
+        right:15px;
+        color:skyblue;
+        font-size: 25px;
       }
     }
   }

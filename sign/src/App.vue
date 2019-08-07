@@ -1,5 +1,6 @@
 <script>
 import {login} from '@/service/';
+import "@/fonts/iconfont.css";
 export default {
   created () {
     // 调用API从本地缓存中获取数据
@@ -10,14 +11,14 @@ export default {
      * 百度：mpvue === swan, mpvuePlatform === 'swan'
      * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
      */
-
+    console.log("store...",this.$store)
      // 调用登陆接口
     wx.login({
       success: async (res)=>{
         if (res.code) {
           //发起网络请求
           let data = await login(res.code);
-          console.log('res...', data);
+           console.log('res...', data);
         } else {
           console.log('登录失败！' + res.errMsg)
         }
@@ -30,11 +31,8 @@ export default {
 
 <style>
 
-page{
-  width: 100%;
+page, page>view{
   height: 100%;
-  box-sizing: border-box;
-
 }
 
 </style>

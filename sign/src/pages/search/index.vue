@@ -31,7 +31,7 @@
     </div>
 </template>
 <script>
-import "@/fonts/iconfont.css";
+
 export default {
     props:{
 
