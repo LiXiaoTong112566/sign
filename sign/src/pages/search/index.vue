@@ -6,7 +6,7 @@
         </div>
         <div class="addlist">
             <div class="list">
-                <span>icon</span>
+                <span class="iconfont icon-zhifeiji"></span>
                 <div>
                     <div>
                       北京八维教育软工学院    
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="list">
-                <span>icon</span>
+                <span class="iconfont icon-zhifeiji"></span>
                 <div>
                     <div>
                       北京八维教育软工学院    
@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+import "@/fonts/iconfont.css";
 export default {
     props:{
 
@@ -91,6 +92,9 @@ export default {
     line-height: 50px;
     display:inline-block;
     margin:0 20px;
+}
+.list .iconfont{
+    font-size: 30px;
 }
 .list .detail{
     font-size: 13px;
