@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <button class="btn">确认</button>
+    <button class="btn" @click="addConfirm()">确认</button>
 
     <div class="mask">
       <div class="maskBox">
@@ -59,7 +59,21 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    addConfirm(){
+        wx.showModal({
+          title: '提示',
+          content: '这是一个模态弹窗',
+          success (res) {
+            if (res.confirm) {
+            console.log('用户点击确定')
+            } else if (res.cancel) {
+            console.log('用户点击取消')
+            }
+          }
+        })
+    }
+  },
   created() {},
   mounted() {}
 };
