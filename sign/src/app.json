@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/index/main",
-    "pages/logs/main",
+    "pages/addInterview/main",
+    "pages/interviewIist/main",
+    
+    "pages/home/main",
+    
     "pages/counter/main"
   ],
   "window": {
@@ -10,5 +13,6 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   }
+
   
 }
