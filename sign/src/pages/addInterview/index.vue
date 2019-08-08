@@ -32,22 +32,10 @@
       </dl>
     </div>
 
-    <div class="noteBox">
       <div class="notetitle">备注信息</div>
-      <div class="noteMain">
-        <textarea name id cols="30" rows="10" placeholder="备注信息(可选，100个字以内)"></textarea>
-      </div>
-    </div>
+      <textarea name id  placeholder="备注信息(可选，100个字以内)"></textarea>
 
     <button class="btn" @click="addConfirm()">确认</button>
-
-    <div class="mask">
-      <div class="maskBox">
-        <h3>温馨提示</h3>
-        <p>添加面试成功</p>
-        <div>确定</div>
-      </div>
-    </div>    
 
   </div>
 </template>
@@ -62,8 +50,8 @@ export default {
   methods: {
     addConfirm(){
         wx.showModal({
-          title: '提示',
-          content: '这是一个模态弹窗',
+          title: '温馨提示',
+          content: '添加面试成功',
           success (res) {
             if (res.confirm) {
             console.log('用户点击确定')
@@ -83,18 +71,10 @@ export default {
   width: 100%;
   height: 100%;
   .header {
-    width: 100%;
     height: 80rpx;
     line-height: 80rpx;
-    padding-left: 5rpx;
-    background: #ccc;
-  }
-
-  textarea {
-    height: 260rpx;
-    border: 1px solid #ccc;
-    margin: 0 10rpx;
-    padding: 10rpx 10rpx;
+    padding-left: 10rpx;
+    background: #eee;
   }
 }
 
@@ -123,81 +103,32 @@ export default {
   }
 }
 
-.noteBox {
-  width: 100%;
-
-  .noteMain {
-    width: 100%;
-    margin-top: 20rpx;
-  }
-
   .notetitle {
     width: 100%;
     height: 80rpx;
     line-height: 80rpx;
     padding-left: 10rpx;
-    background: #ccc;
+    background: #eee;
+    margin-bottom:30rpx;
   }
-}
+   textarea {
+    width:95%;
+    margin:0 auto;
+    height: 260rpx;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 10rpx 10rpx;
+  }
+
 
 .btn {
   width: 100%;
   height: 100rpx;
   line-height: 100rpx;
-  background: #ccc;
+  background: #eee;
   text-align: center;
   margin-top: 30rpx;
   border-radius: 0;
 }
 
-.mask{
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  position: absolute;
-  top:0;
-  left:0;
-  display: none;
-
-  .maskBox{
-    width: 80%;
-    height: 260rpx;
-    background: #fff;
-    margin:0 10%;
-    z-index:100;
-    position: absolute;
-    top:35%;
-    text-align: center;
-    border-radius: 20rpx;
-    
-
-    h3{
-      width: 100%;
-      height: 80rpx;
-      line-height:80rpx;
-      font-size:40rpx;
-      font-weight: 600;
-
-
-     
-    }
-
-     p{
-        width: 100%;
-       height: 80rpx;
-       line-height: 80rpx;
-
-
-      }
-      div{
-        height: 80rpx;
-        line-height: 80rpx;
-        color:cornflowerblue;
-        border-top:1px solid #ccc;
-      }
-   
-
-  }
-
-}
 </style>
