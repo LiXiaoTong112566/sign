@@ -1,52 +1,53 @@
 <template>
   <div class="addInterviewBox">
     <div class="header">面试信息</div>
+    <form @submit="submit" report-submit>
+        <div class="main">
+          <dl>
+            <dt>公司名称</dt>
+            <dd>
+              <input type="text" placeholder="请输入公司名称" v-model="company"/>
+            </dd>
+          </dl>
+          <dl>
+            <dt>公司电话</dt>
+            <dd>
+              <input type="text" placeholder="请输入面试联系人电话" v-model="tel"/>
+            </dd>
+          </dl>
+          <dl>
+            <dt>面试时间</dt>
+            <dd class="distime">
+              <!-- <input type="text" placeholder="2019-08-06 17:00" /> -->
+              <picker
+                  mode="multiSelector"
+                  :range="dateRange"
+                  :value="info.date"
+                  @change="dateChange"
+                  @columnchange="columnChange"
+                ><view class="date">{{dateShow}}</view>
+              </picker>
+              <span class="iconfont icon-gantanhao1" @click="showTimeTip"></span>
+            
+            </dd>
+          </dl>
+          <dl>
+            <dt>面试地址</dt>
+            <dd>
+                <navigator url="/pages/search/main">
+                  <span v-if="site.address" class="site">{{site.address}}</span>
+                  <input v-else type="text" placeholder="请输入面试地址" />
+                </navigator>
+            </dd>
+          </dl>
+        </div>
 
-    <div class="main">
-      <dl>
-        <dt>公司名称</dt>
-        <dd>
-          <input type="text" placeholder="请输入公司名称" v-model="company"/>
-        </dd>
-      </dl>
-      <dl>
-        <dt>公司电话</dt>
-        <dd>
-          <input type="text" placeholder="请输入面试联系人电话" v-model="tel"/>
-        </dd>
-      </dl>
-      <dl>
-        <dt>面试时间</dt>
-        <dd class="distime">
-          <!-- <input type="text" placeholder="2019-08-06 17:00" /> -->
-          <picker
-              mode="multiSelector"
-              :range="dateRange"
-              :value="info.date"
-              @change="dateChange"
-              @columnchange="columnChange"
-            ><view class="date">{{dateShow}}</view>
-          </picker>
-          <span class="iconfont icon-gantanhao1" @click="showTimeTip"></span>
-        
-        </dd>
-      </dl>
-      <dl>
-        <dt>面试地址</dt>
-        <dd>
-            <navigator url="/pages/search/main">
-              <span v-if="site.address" class="site">{{site.address}}</span>
-              <input v-else type="text" placeholder="请输入面试地址" />
-            </navigator>
-        </dd>
-      </dl>
-    </div>
+          <div class="notetitle">备注信息</div>
+          <textarea  placeholder="备注信息(可选，100个字以内)" v-model="remarks"></textarea>
 
-      <div class="notetitle">备注信息</div>
-      <textarea  placeholder="备注信息(可选，100个字以内)" v-model="remarks"></textarea>
-
-    <button class="btn" @click="addConfirm(company,tel)">确认</button>
-
+        <button class="btn" form-type="submit">确认</button>
+        <!-- <button class="btn" @click="addConfirm()">确认</button> -->
+    </form>
   </div>
 </template>
 <script>
@@ -76,6 +77,7 @@ export default {
        ...mapState ({
            site :state=>state.address.site
        }),
+       
         // 处理面试日期
         dateRange(){
           let dateRange = [...range];
@@ -107,6 +109,9 @@ export default {
         }
     },
   methods: {
+    ...mapActions({
+         addInterview:"addSign/addInterview"
+    }),
     showTimeTip(){
       wx.showToast({
         title: '在面试前一个小时我们会通知你哦', //提示的内容,
@@ -116,39 +121,47 @@ export default {
      // 监听多列选择器每列变化
     columnChange(e){
       let {column, value} = e.target;
-      console.log(column,value,"111111")
+      // console.log(column,value,"111111")
       let date = [...this.info.date];
       date[column] = value;
       this.info.date = date;
     },
-    addConfirm(name,tel){
+    //获取数据传递数据
+   async submit(e){
       var TEL_REGEXP = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
-    
-     if(name == "" || tel == "" || this.site.length == 0){
+     if(this.company == "" || this.tel == "" || this.site.length == 0){
         wx.showToast({
           title: '公司名称/地址/手机号不可为空',
           icon: 'none'
         })
      }else
-     if(!TEL_REGEXP.test(tel)){
+     if(!TEL_REGEXP.test(this.tel)){
         wx.showToast({
           title: '请输入正确手机号',
           icon: 'none'
         })
      }else{
+        //要传的数据
+              let current = {
+              company:this.company,//公司名称
+              phone:this.tel,
+              form_id:e.target.formId,
+              address:this.site.address,
+              latitude:this.site.location.lat,
+              longitude:this.site.location.lng,
+              start_time:moment(this.dateShow).unix()*1000,
+              description:this.remarks
+              };
         wx.showModal({
           title: '温馨提示',
           content: '添加面试成功',
-          success (res) {
+          success:(res)=> {
             if (res.confirm) {
-            console.log('用户点击确定')
-            // wx.addSign({
-            //   success:async (res)=>{
-            //     console.log()
-            //   }
-            // })
-             const url =  "/pages/interviewIist/main";
-             mpvue.navigateTo({url})
+             // console.log("要传的值",current)
+              let data = await this.addInterview(current);
+              console.log("data",data)
+            //  const url =  "/pages/interviewIist/main";
+            //  mpvue.navigateTo({url})
             } else if (res.cancel) {
             console.log('用户点击取消')
             }

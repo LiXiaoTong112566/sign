@@ -5,6 +5,7 @@ import CreateLogger from 'vuex/dist/logger';
 // 引入store子模块
 import home from './modules/home';
 import address from "./modules/address";
+import addSign from "./modules/addSign";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     home,
-    address
+    address,
+    addSign
   },
   plugins: [CreateLogger()]
 })
