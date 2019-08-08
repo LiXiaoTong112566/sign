@@ -1,126 +1,104 @@
 <template>
-    <div>
-        <div class="address">
-            <span>北京</span>
-            <input type="text" v-model="addressValue" @input="changeFn()" placeholder="请输入公司名称">
-        </div>
-        <div class="addlist">
-            <div class="list" v-for="(item,index) in getAddress" :key="item.id" @click="getItemData(item.address)">
-                <span class="iconfont icon-feiji"></span>
-                <div>
-                    <div>
-                        {{item.title}}
-                    
-                    </div>
-                    <div class="detail">
-                      {{item.address}}
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+  <div>
+    <div class="address">
+      <span>北京</span>
+      <input type="text" v-model="addressValue" @input="changeFn()" placeholder="请输入公司名称" />
     </div>
+    <div class="addlist">
+      <div
+        class="list"
+        v-for="(item,index) in getAddress"
+        :key="item.id"
+        @click="getItemData(item)"
+      >
+        <span class="iconfont icon-feiji"></span>
+        <div>
+          <div>{{item.title}}</div>
+          <div class="detail">{{item.address}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-
-import {mapState,mapActions,mapMutations} from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
-    props:{
+  props: {},
+  components: {},
+  data() {
+    return {
+      addressValue: ""
+    };
+  },
+  computed: {
+    ...mapState({
+      getAddress: state => state.address.addressData
+    })
+  },
+  methods: {
+    ...mapActions({
+      getSuggestion: "address/getSuggestion"
+    }),
 
+    ...mapMutations({
+      getCheckedAddress: "address/getCheckedAddress"
+    }),
+    changeFn() {
+      //搜索的内容
+      console.log(this.addressValue);
+      this.getSuggestion(this.addressValue);
     },
-    components:{
-
-    },
-    data(){
-        return {
-            addressValue:"",
-
-        }
-    },
-    computed:{
-        ...mapState({
-            getAddress:state => state.address.addressData,
-        })
-
-    },
-    methods:{
-        ...mapActions({
-            getSuggestion:"address/getSuggestion",
-
-        }),
-
-        ...mapMutations({
-            getCheckedAddress:"address/getCheckedAddress",
-
-        }),
-        changeFn(){
-            //搜索的内容
-            console.log(this.addressValue);
-            this.getSuggestion(this.addressValue);
-        },
-            //点击把点击的地址传过去
-        getItemData(data){
-            this.getCheckedAddress(data)
-                wx.navigateBack({
-                delta: 1
-        })
-
-        
-
-
+    //点击把点击的地址传过去
+    getItemData(data) {
+      console.log(data);
+      this.getCheckedAddress(data);
+      wx.navigateBack({
+        delta: 1
+      });
     }
-
-
-
-       
-
-    },
-    created(){
-
-    },
-    mounted(){
-
-    }
-}
+  },
+  created() {},
+  mounted() {}
+};
 </script>
 <style scoped lang="">
-.address{
-  width:100%;
-  height:40px;
+.address {
+  width: 100%;
+  height: 40px;
   box-sizing: border-box;
-  padding:8px 20px;
-  border-top:1px solid #eee;
+  padding: 8px 20px;
+  border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  display:flex;
+  display: flex;
 }
-.address span{
-    padding-right:20px;
-    border-right: 1px solid #eee;
+.address span {
+  padding-right: 20px;
+  border-right: 1px solid #eee;
 }
-.address input{
-  height:100%;
-  flex:1;
-  margin-left:10px;
+.address input {
+  height: 100%;
+  flex: 1;
+  margin-left: 10px;
 }
-.list{
-    width: 100%;
-    height:50px;
-    border-bottom: 1px solid #eee;
-    display:flex;
+.list {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #eee;
+  display: flex;
 }
-.list>div{
-    box-sizing: border-box;
-    padding:5px 0;
+.list > div {
+  box-sizing: border-box;
+  padding: 5px 0;
 }
-.list>span{
-    color:skyblue;
-    line-height: 50px;
-    display:inline-block;
-    margin:0 20px;
-    font-size:52rpx;
+.list > span {
+  color: skyblue;
+  line-height: 50px;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 52rpx;
 }
-.list .detail{
-    font-size: 13px;
-    color:#ccc;
+.list .detail {
+  font-size: 13px;
+  color: #ccc;
 }
 </style>

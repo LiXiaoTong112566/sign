@@ -2,7 +2,6 @@
   <div class="InterviewListBox">
     <ul class="header">
       <li  v-for="(item,index) in tabData" :key="index">{{item}}</li>
-      
     </ul>
 
     <div class="main">
@@ -21,6 +20,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations} from "vuex";
 export default {
   props: {},
   components: {},
@@ -34,9 +34,16 @@ export default {
       ]
     };
   },
-  computed: {},
-  methods: {},
-  created() {},
+  computed: {
+
+  },
+  methods: {
+
+  },
+  created() {
+    
+
+  },
   mounted() {}
 };
 </script>

@@ -13,7 +13,11 @@ fly.config.baseURL = "https://sign.jasonandjay.com"
 //添加请求拦截器
 fly.interceptors.request.use((request)=>{
     //给所有请求添加自定义header
-    request.headers["X-Tag"]="flyio";
+    let openid=wx.getStorageSync("openid");
+    if(openid){
+        request.headers["openid"]=openid;
+    }
+   
   	//打印出请求体
   	console.log(request.body)
   	//终止请求
