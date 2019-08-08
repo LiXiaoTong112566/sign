@@ -2,84 +2,111 @@
 <template>
   <div class="homeBox">
     <div class="atlas">
-      <map></map>
+      <map id="map" show-location :markers="markers" :longitude="longitude" :latitude="latitude"></map>
+      <cover-view class="location" @click="location">
+        <span class="iconfont icon-dingwei"></span>
+      </cover-view>
+
+      <div class="mine iconfont icon-wode"></div>
     </div>
-
-    <div class="footer">
-      添加考试
-    </div>
-
-
+    <navigator url="/pages/addInterview/main">
+      <div class="footer">添加面试</div>
+    </navigator>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
-  props:{
-    
-
-  },
-  components:{
-
-  },
-  data(){
+  props: {},
+  components: {},
+  data() {
     return {
-
-    }
+      markers: []
+    };
   },
-  computed:{
-
+  computed: {
+    ...mapState({
+      longitude: state => state.home.longitude,
+      latitude: state => state.home.latitude
+    })
   },
-  methods:{
-
+  methods: {
+    ...mapActions({
+      location: "home/getLocation"
+    })
   },
-  created(){
-
-  },
-  mounted(){
-
-  }
-}
+  created() {},
+  mounted() {}
+};
 </script>
 <style scoped lang="scss">
-*{
-  padding:0;
-  margin:0;
-
-}
-
-page{
-  width: 100%;
-  height: 100%;
-}
-
-.homeBox{
+.homeBox {
   width: 100%;
   height: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  .atlas{
-    width: 100%;
-    flex:1;
+  position: relative;
 
-    map{
+  button{
+    border:none;
+  }
+  
+  .atlas {
+    width: 100%;
+    flex: 1;
+
+    map {
       width: 100%;
       height: 100%;
+      position: absolute;
+    }
+
+    .location {
+      position: fixed;
+      bottom: 130rpx;
+      left: 60rpx;
+
+      .icon-dingwei {
+        color:blue;
+        font-size: 80rpx;
+       
+        border:none;
+      }
     }
   }
 
-  .footer{
+  .mine {
+    position: absolute;
+    right: 20rpx;
+    bottom: 130rpx;
+    color: lightskyblue;
+    font-size: 52rpx;
+    background:#000;
+
+    border-radius: 50%;
+    width: 100rpx;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
+  }
+
+  navigator {
     width: 100%;
     height: 100rpx;
     line-height: 100rpx;
     text-align: center;
-    background: rgba(0,0,0,0.9);
-    color:#fff;
-    
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    z-index: 100;
   }
-
-
-
+  .footer {
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+  }
 }
-
 </style>

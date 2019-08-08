@@ -2,35 +2,28 @@
     <div>
         <div class="address">
             <span>北京</span>
-            <input type="text" value="北京八维">
+            <input type="text" v-model="addressValue" @input="changeFn()" placeholder="请输入公司名称">
         </div>
         <div class="addlist">
-            <div class="list">
-                <span>icon</span>
+            <div class="list" v-for="(item,index) in getAddress" :key="item.id" @click="getItemData(item.address)">
+                <span class="iconfont icon-feiji"></span>
                 <div>
                     <div>
-                      北京八维教育软工学院    
+                        {{item.title}}
+                    
                     </div>
                     <div class="detail">
-                        北京海淀区上地软件元南路57号
+                      {{item.address}}
                     </div>
                 </div>
             </div>
-            <div class="list">
-                <span>icon</span>
-                <div>
-                    <div>
-                      北京八维教育软工学院    
-                    </div>
-                    <div class="detail">
-                        北京海淀区上地软件元南路57号
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </template>
 <script>
+
+import {mapState,mapActions,mapMutations} from "vuex";
 export default {
     props:{
 
@@ -40,13 +33,46 @@ export default {
     },
     data(){
         return {
+            addressValue:"",
 
         }
     },
     computed:{
+        ...mapState({
+            getAddress:state => state.address.addressData,
+        })
 
     },
     methods:{
+        ...mapActions({
+            getSuggestion:"address/getSuggestion",
+
+        }),
+
+        ...mapMutations({
+            getCheckedAddress:"address/getCheckedAddress",
+
+        }),
+        changeFn(){
+            //搜索的内容
+            console.log(this.addressValue);
+            this.getSuggestion(this.addressValue);
+        },
+            //点击把点击的地址传过去
+        getItemData(data){
+            this.getCheckedAddress(data)
+                wx.navigateBack({
+                delta: 1
+        })
+
+        
+
+
+    }
+
+
+
+       
 
     },
     created(){
@@ -91,6 +117,7 @@ export default {
     line-height: 50px;
     display:inline-block;
     margin:0 20px;
+    font-size:52rpx;
 }
 .list .detail{
     font-size: 13px;

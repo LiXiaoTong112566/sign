@@ -1,10 +1,8 @@
 <template>
   <div class="InterviewListBox">
     <ul class="header">
-      <li class="active">未开始</li>
-      <li>已打卡</li>
-      <li>已放弃</li>
-      <li>全部</li>
+      <li  v-for="(item,index) in tabData" :key="index">{{item}}</li>
+      
     </ul>
 
     <div class="main">
@@ -27,7 +25,14 @@ export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      tabData:[
+        "未开始",
+        "已打卡",
+        "已放弃",
+        "全部"
+      ]
+    };
   },
   computed: {},
   methods: {},
