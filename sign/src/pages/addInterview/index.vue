@@ -152,21 +152,28 @@ export default {
               start_time:moment(this.dateShow).unix()*1000,
               description:this.remarks
               };
-        wx.showModal({
-          title: '温馨提示',
-          content: '添加面试成功',
-          success:(res)=> {
-            if (res.confirm) {
-             // console.log("要传的值",current)
-              let data = await this.addInterview(current);
-              console.log("data",data)
-            //  const url =  "/pages/interviewIist/main";
-            //  mpvue.navigateTo({url})
-            } else if (res.cancel) {
-            console.log('用户点击取消')
-            }
-          }
-        })
+           let data = await this.addInterview(current);
+            
+              if(data.code === 0){
+                  wx.showModal({
+                      title: '温馨提示',
+                      content: '添加面试成功',
+                      success: (res)=> {
+                          if (res.confirm) {
+                           const url =  "/pages/interviewIist/main";
+                           mpvue.navigateTo({url})
+                          } else if (res.cancel) {
+                             console.log('用户点击取消')
+                          }
+                      }
+                  })
+              }else{
+                wx.showModal({
+                  title:"温馨提示",
+                  content:data.msg
+                })
+              }
+       
      }
         
     }

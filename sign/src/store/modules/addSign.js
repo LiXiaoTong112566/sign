@@ -13,10 +13,10 @@ const mutations = {
 //模块内的异步改变
 const actions = {
     async addInterview(state,payload){
-        console.log("传过来的值",payload);
+        //console.log("传过来的值",payload);
         return new Promise(async (resolve, reject) => {
-            let data = await addInterViewService(payload);
-            console.log("请求返回的值", data);
+            let data = await addSign(payload);
+            //console.log("请求返回的值", data);
             resolve(data);
           });
     }

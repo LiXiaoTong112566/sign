@@ -8,6 +8,5 @@ export let login = code=>{
 
 // 添加面试
 export let addSign = params =>{
-    console.log("add//",params)
-    return fly.post("/sign", {params})
+    return fly.post("/sign", params)
 }
