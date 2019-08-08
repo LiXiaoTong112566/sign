@@ -5,7 +5,7 @@
             <input type="text" v-model="site" @input="getaddress()">
         </div>
         <div class="addlist">
-            <div class="list" v-for="item in search" :key="item.id">
+            <div class="list" v-for="item in search" :key="item.id" @click="goLocation(item)">
                 <span class="iconfont icon-zhifeiji"></span>
                 <div>
                     <div>
@@ -42,10 +42,17 @@ export default {
     },
     methods:{
        ...mapActions({
-           getSuggestion:"address/getSuggestion"
+           getSuggestion:"address/getSuggestion",
+           siteTranspor:"address/siteTranspor"
        }),
        getaddress(){
            this.getSuggestion(this.site)
+       },
+       goLocation(record){
+          // console.log(record)
+           this.siteTranspor(record)
+            const url = "/pages/addInterview/main";
+            mpvue.navigateTo({url})
        }
     },
     created(){

@@ -6,7 +6,8 @@ const qqMapSdk = new QQMapWX ({
 });
 
 const state = {
-    search:[]
+    search:[],
+    site:[],
 }
 
 const actions = {
@@ -14,10 +15,14 @@ const actions = {
         qqMapSdk.getSuggestion({
           keyword: payload,
           success: res=>{
-            console.log('address...', res);
+           // console.log('address...', res);
             state.search=res.data
           }
         })
+      },
+      siteTranspor({commit},payload){
+          console.log(payload)
+          state.site = payload
       }
 }
 
