@@ -6,6 +6,7 @@ import CreateLogger from 'vuex/dist/logger';
 import home from './modules/home';
 import address from "./modules/address";
 import addSign from "./modules/addSign";
+import user from "./modules/user";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   modules: {
     home,
     address,
-    addSign
+    addSign,
+    user
   },
   plugins: [CreateLogger()]
 })

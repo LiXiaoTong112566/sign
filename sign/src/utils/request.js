@@ -1,3 +1,4 @@
+import store from "@/store"
 var Fly=require("flyio/dist/npm/wx") 
 var fly=new Fly;
 
@@ -22,7 +23,10 @@ fly.interceptors.request.use((request)=>{
 
 
     //给所有请求添加自定义header
-    request.headers["X-Tag"]="flyio";
+    if(store.state.user.openid){
+        request.headers["openid"]=store.state.user.openid;
+    }
+    
   	//打印出请求体
   	console.log(request.body)
   	//终止请求

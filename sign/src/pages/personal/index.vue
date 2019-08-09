@@ -2,16 +2,16 @@
     <div>
         <dl class="user">
             <dt class="iconfont icon-04f"></dt>
-            <dd>175555</dd>
+            <dd>{{info.phoneNumber}}</dd>
         </dl>
         <div class="uesrList"> 
-            <!-- <navigator url="/pages/interviewlist/main"> -->
-                <div @click="goto">
-                    <i class="iconfont icon-shijian"></i>
-                    <span class="subject">我的面试</span> 
-                    <span>&gt;</span>
-                </div>
-            <!-- </navigator> -->
+           <!-- 跳页面方法一 -->
+            <div @click="interview">
+                <i class="iconfont icon-shijian"></i>
+                <span class="subject">我的面试</span> 
+                <span>&gt;</span>
+            </div>
+           <!-- 跳页面方法二 -->
             <navigator url="/pages/assistant/main">
                 <div>
                     <i class="iconfont icon-gantanhao1"></i>
@@ -20,9 +20,17 @@
                 </div> 
             </navigator>
         </div>
+        <!-- 蒙层 -->
+        <button 
+            v-if="flag" 
+            class="mongolia" 
+            open-type="getPhoneNumber" 
+            @getphonenumber="getPhoneNumber"
+        ></button>
     </div>
 </template>
 <script>
+import {mapState,mapActions} from "vuex"
 export default {
     props:{
 
@@ -32,17 +40,36 @@ export default {
     },
     data(){
         return {
-
+           flag:true
         }
     },
     computed:{
-
+        ...mapState({
+              info :state=>state.user.info,
+              warrant:state=>state.user.warrant
+        }),
     },
     methods:{
-     goto(){
-         const url = "/pages/interviewIist/main";
-         mpvue.navigateTo({url})
-     }
+        ...mapActions({
+            decrypt:"user/decrypt"
+        }),
+        interview(){
+            const url = "/pages/interviewIist/main";
+            mpvue.navigateTo({url})
+        },
+        getPhoneNumber(e){
+            let {encryptedData, iv,errMsg} = e.target;
+            if(errMsg == "getPhoneNumber:ok"){
+                //允许获取数据
+                this.decrypt({
+                    encryptedData,
+                    iv
+               }) 
+              //  解除蒙层
+               this.flag = false;
+            }
+         
+        }
     },
     created(){
 
@@ -83,5 +110,13 @@ export default {
         flex:1;
         text-indent: 20px;
     }
+}
+.mongolia{
+    width:100%;
+    height:100%;
+    position: fixed;
+    left:0;
+    top:0;
+    background:rgba(250,250,250,.5);
 }
 </style>

@@ -18,7 +18,6 @@
           <dl>
             <dt>面试时间</dt>
             <dd class="distime">
-              <!-- <input type="text" placeholder="2019-08-06 17:00" /> -->
               <picker
                   mode="multiSelector"
                   :range="dateRange"
@@ -27,8 +26,7 @@
                   @columnchange="columnChange"
                 ><view class="date">{{dateShow}}</view>
               </picker>
-              <span class="iconfont icon-gantanhao1" @click="showTimeTip"></span>
-            
+              <span class="iconfont icon-gantanhao1" @click="showTimeTip"></span>  
             </dd>
           </dl>
           <dl>
@@ -41,10 +39,8 @@
             </dd>
           </dl>
         </div>
-
-          <div class="notetitle">备注信息</div>
-          <textarea  placeholder="备注信息(可选，100个字以内)" v-model="remarks"></textarea>
-
+        <div class="notetitle">备注信息</div>
+        <textarea  placeholder="备注信息(可选，100个字以内)" v-model="remarks"></textarea>
         <button class="btn" form-type="submit">确认</button>
         <!-- <button class="btn" @click="addConfirm()">确认</button> -->
     </form>
@@ -73,11 +69,10 @@ export default {
       }
     };
   },
-   computed:{
+  computed:{
        ...mapState ({
            site :state=>state.address.site
        }),
-       
         // 处理面试日期
         dateRange(){
           let dateRange = [...range];
@@ -142,38 +137,38 @@ export default {
         })
      }else{
         //要传的数据
-              let current = {
-              company:this.company,//公司名称
-              phone:this.tel,
-              form_id:e.target.formId,
-              address:this.site.address,
-              latitude:this.site.location.lat,
-              longitude:this.site.location.lng,
-              start_time:moment(this.dateShow).unix()*1000,
-              description:this.remarks
-              };
+          let current = {
+          company:this.company,//公司名称
+          phone:this.tel, //电话
+          form_id:e.target.formId,  //formid 表单的id
+          address:this.site.address, //公司地址
+          latitude:this.site.location.lat, // 经纬度
+          longitude:this.site.location.lng, //经纬度
+          start_time:moment(this.dateShow).unix()*1000, // 添加面试时间戳
+          description:this.remarks // 备注信息
+          };
+        // 传入数据
            let data = await this.addInterview(current);
-            
-              if(data.code === 0){
-                  wx.showModal({
-                      title: '温馨提示',
-                      content: '添加面试成功',
-                      success: (res)=> {
-                          if (res.confirm) {
-                           const url =  "/pages/interviewIist/main";
-                           mpvue.navigateTo({url})
-                          } else if (res.cancel) {
-                             console.log('用户点击取消')
-                          }
-                      }
-                  })
-              }else{
+        //判断传如数据是否成功
+            if(data.code === 0){
                 wx.showModal({
-                  title:"温馨提示",
-                  content:data.msg
+                    title: '温馨提示',
+                    content: '添加面试成功',
+                    success: (res)=> {
+                        if (res.confirm) {
+                          const url =  "/pages/interviewIist/main";
+                          mpvue.navigateTo({url})
+                        } else if (res.cancel) {
+                            console.log('用户点击取消')
+                        }
+                    }
                 })
-              }
-       
+            }else{
+              wx.showModal({
+                title:"温馨提示",
+                content:data.msg
+              })
+            }
      }
         
     }
@@ -214,7 +209,6 @@ export default {
         z-index:1;
       }
       .site{
-        color:#ccc;
         font-size: 15px;
       }
     }

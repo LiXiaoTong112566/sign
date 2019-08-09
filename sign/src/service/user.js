@@ -10,3 +10,18 @@ export let login = code=>{
 export let addSign = params =>{
     return fly.post("/sign", params)
 }
+
+// 解密数据
+export let decrypt = params =>{
+    return fly.post("/user/decrypt", params)
+}
+
+//更新手机号
+export let updatePhone = params =>{
+    return fly.post("/user/updatePhone", params)
+}
+
+//获取面试列表
+export let sign = params =>{
+    return fly.get("/sign", {params})
+}
