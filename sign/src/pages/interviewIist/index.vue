@@ -1,26 +1,30 @@
 <template>
   <div class="InterviewListBox">
     <ul class="header">
-      <li  v-for="(item,index) in tabData" :key="index">{{item}}</li>
+      <li  v-for="(item,index) in tabData" :key="index" :class="active===index?'act':''" @click="changeTitle(index)">{{item}}</li>
     </ul>
 
-    <div class="main">
-      <div class="mainItem">
+    <div class="main" v-if="dataList.length">
+      <div class="div">
+          <div class="mainItem" v-for="(item,index) in dataList" :key="index">
         <div class="company">
-          <h3>北京八维研修学院</h3>
-          <span>未开始</span>
+          <h3>{{item.company}}</h3>
+          <span>{{item.status===-1?"未开始":item.status===0?"已打卡":"已放弃"}}</span>
         </div>
-        <div class="address">北京市海淀区上地软件园南路57号</div>
+        <div class="address">{{item.address}}</div>
         <div class="time">
-          <p>面试时间:2019-08-06 17:00</p>
-          <span>未提醒</span>
+          <p>{{item.start_time}}</p>
+          <span>{{item.remind==="-1"?"未提醒":"已提醒"}}</span>
         </div>
       </div>
+      </div>
+    
     </div>
+    <div  class="none" v-else>当前分类还没有面试</div>
   </div>
 </template>
 <script>
-import {mapState,mapMutations} from "vuex";
+import {mapState,mapMutations,mapActions} from "vuex";
 export default {
   props: {},
   components: {},
@@ -35,16 +39,44 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      active:state=>state.InterViewList.active,
+      dataList:state=>state.InterViewList.dataList,
+    })
 
   },
   methods: {
+    ...mapMutations({
+      changeType:"InterViewList/changeType"
+    }),
+
+    ...mapActions({
+      getList:"InterViewList/getList"
+
+    }),
+    changeTitle(ind){
+      console.log(ind);
+      this.changeType(ind);
+       console.log('11',this.dataList);
+       this.getList(ind);
+       if(ind===3){
+          this.getList();
+       }
+       
+
+    }
 
   },
   created() {
     
 
   },
-  mounted() {}
+  mounted() {
+    this.getList()
+    
+   
+    
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -55,6 +87,7 @@ export default {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
   .header {
     width: 100%;
     height: 100rpx;
@@ -66,20 +99,24 @@ export default {
       text-align: center;
     }
 
-    .active {
+    .act {
       color: cornflowerblue;
     }
   }
 
   .main {
-    width: 100%;
+    width: 98%;
     flex: 1;
     background: #fff;
     margin-top: 20rpx;
+    padding:0 1%;
+    overflow: scroll;
 
     .mainItem {
       width: 100%;
-      height: 300rpx;
+      
+      padding:20rpx 0;
+      border-bottom:1px solid #ccc;
 
       .company {
         width: 100%;
@@ -102,9 +139,13 @@ export default {
 
       .address {
         width: 100%;
-        height: 80rpx;
-        line-height: 80rpx;
-        color:#ccc;
+      
+        color:#333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
+        
       }
 
       .time {
@@ -124,7 +165,14 @@ export default {
             padding:10rpx;
         }
       }
+     
     }
   }
+   .none{
+        background: #eee;
+        flex:1;
+        padding-top:50rpx;
+        text-align: center;
+      }
 }
 </style>

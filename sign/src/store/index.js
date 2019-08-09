@@ -10,12 +10,15 @@ import home from "./module/home";
 
 import address from "./module/address";
 
+import InterViewList from "./module/iterviewData"
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     home,
-    address
+    address,
+    InterViewList
   },
   plugins: [CreateLogger()]
 });

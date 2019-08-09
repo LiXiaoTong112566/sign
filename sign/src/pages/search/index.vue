@@ -12,8 +12,8 @@
         @click="getItemData(item)"
       >
         <span class="iconfont icon-feiji"></span>
-        <div>
-          <div>{{item.title}}</div>
+        <div class="content">
+          <div class="title">{{item.title}}</div>
           <div class="detail">{{item.address}}</div>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default {
 }
 .list {
   width: 100%;
-  height: 50px;
+  
   border-bottom: 1px solid #eee;
   display: flex;
 }
@@ -92,12 +92,17 @@ export default {
 }
 .list > span {
   color: skyblue;
-  line-height: 50px;
+  
   display: inline-block;
-  margin: 0 20px;
+  margin: 30rpx 20rpx;
   font-size: 52rpx;
 }
+
+.title{
+  padding:10rpx 0;
+}
 .list .detail {
+  padding:6rpx 0;
   font-size: 13px;
   color: #ccc;
 }

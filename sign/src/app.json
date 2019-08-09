@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/interviewIist/main",
     "pages/home/main",
+    "pages/interviewIist/main",
     "pages/addInterview/main",
-    
     "pages/assistant/main",
     "pages/personal/main",
     "pages/listForm/main",
