@@ -23,5 +23,18 @@ export let updatePhone = params =>{
 
 //获取面试列表
 export let sign = params =>{
-    return fly.get("/sign", {params})
+    return fly.get("/sign", params)
+}
+
+//获取面试详情
+export let getInterViewDetail= code=>{
+    return fly.get(`/sign/${code}`);
+}
+  
+//更新面试信息
+export let updataInterView= code=>{
+    console.log(code);
+    let newCode=Object.assign({},code);
+    delete code.id;
+    return fly.put(`/sign/${newCode.id}`,code);
 }

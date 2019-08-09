@@ -7,6 +7,7 @@ import home from './modules/home';
 import address from "./modules/address";
 import addSign from "./modules/addSign";
 import user from "./modules/user";
+import signList from "./modules/signList";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     home,
     address,
     addSign,
-    user
+    user,
+    signList
   },
   plugins: [CreateLogger()]
 })
