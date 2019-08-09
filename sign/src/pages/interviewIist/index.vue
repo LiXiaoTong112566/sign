@@ -1,12 +1,18 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 10:10:14
+ * @LastEditTime: 2019-08-09 16:24:50
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div class="InterviewListBox">
     <ul class="header">
       <li  v-for="(item,index) in tabData" :key="index" :class="active===index?'act':''" @click="changeTitle(index)">{{item}}</li>
     </ul>
-
-    <div class="main" v-if="dataList.length">
+    <div class="main" v-if="dataList.length" >
       <div class="div">
-          <div class="mainItem" v-for="(item,index) in dataList" :key="index">
+          <div class="mainItem" v-for="(item,index) in dataList" :key="index" @click="jumpDetail(item)">
         <div class="company">
           <h3>{{item.company}}</h3>
           <span>{{item.status===-1?"未开始":item.status===0?"已打卡":"已放弃"}}</span>
@@ -43,7 +49,6 @@ export default {
       active:state=>state.InterViewList.active,
       dataList:state=>state.InterViewList.dataList,
     })
-
   },
   methods: {
     ...mapMutations({
@@ -59,17 +64,23 @@ export default {
       this.changeType(ind);
        console.log('11',this.dataList);
        this.getList(ind);
-       if(ind===3){
-          this.getList();
-       }
-       
+    },
+    jumpDetail(item){
+      console.log("跳转到页面",item.id);
+    
+      wx.navigateTo({
+        url: `/pages/listForm/main?id=${item.id}`,
+  })
+
+
+
+
 
     }
 
   },
   created() {
     
-
   },
   mounted() {
     this.getList()
@@ -139,7 +150,6 @@ export default {
 
       .address {
         width: 100%;
-      
         color:#333;
         overflow: hidden;
         text-overflow: ellipsis;

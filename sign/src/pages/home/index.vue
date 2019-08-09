@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 10:10:14
+ * @LastEditTime: 2019-08-09 10:02:14
+ * @LastEditors: Please set LastEditors
+ -->
 
 <template>
   <div class="homeBox">
@@ -6,8 +13,9 @@
       <cover-view class="location" @click="location">
         <span class="iconfont icon-dingwei"></span>
       </cover-view>
-
-      <div class="mine iconfont icon-wode"></div>
+       <navigator url="/pages/personal/main">
+      <div class="mine iconfont icon-wode" @click="jumpMy"></div>
+      </navigator>
     </div>
     <navigator url="/pages/addInterview/main">
       <div class="footer">添加面试</div>
