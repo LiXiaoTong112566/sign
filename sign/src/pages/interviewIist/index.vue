@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="signList">
     <div class="header">
       <span 
         v-for="(item,index) in types" 
@@ -74,6 +74,12 @@ export default {
  };
  </script>
  <style scoped lang="scss">
+ .signList{
+   width:100%;
+   height:100%;
+   display:flex;
+   flex-direction:column; 
+ }
 .header{
   width: 100%;
   height:80rpx;
@@ -82,6 +88,10 @@ export default {
   border-bottom: 5px solid #eee;
   display:flex;
   justify-content: space-around;
+}
+.main{
+  flex:1;
+  overflow: scroll;
 }
 .active{
   color:skyblue;
@@ -113,9 +123,13 @@ export default {
     }
   }
   .address{
+    width:100%;
     color:#ccc;
     font-size: 13px;
     margin:8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .time{
     color:#666;

@@ -51,43 +51,42 @@ const actions = {
         params.status = state.active - 1;
         result = await sign(params);
       }
-      console.log("32", result);
+      //console.log("面试列表", result);
       result.data.forEach(item => {
         item.start_time = formatTime(item.start_time);
         if (item.address.includes("{")) {
           item.address = JSON.parse(item.address);
-          console.log("获取的地址", item.address);
           item.address = item.address.address;
         }
       });
-      console.log("修改后数据", result.data);
+      //console.log("修改后数据", result.data);
       commit("getListData", result.data);
       resolve();
     });
   },
   //获取面试详情的数据
-  // async getInterViewDetailData({ commit }, payload) {
-  //   console.log("获取面试详情", payload);
-  //   let data = await getInterViewDetail(payload);
-  //   console.log("获取面试详情的数据", data);
-  //   let newData = data.data;
-  //   //判断address的数据是不是对象
-  //   if (newData.address.includes("{")) {
-  //     newData.address = JSON.parse(newData.address);
-  //     newData.address = newData.address.address;
-  //   }
+  async getInterViewDetailData({ commit }, payload) {
+    console.log("获取面试详情", payload);
+    let data = await getInterViewDetail(payload);
+    console.log("获取面试详情的数据", data);
+    let newData = data.data;
+    //判断address的数据是不是对象
+    if (newData.address.includes("{")) {
+      newData.address = JSON.parse(newData.address);
+      newData.address = newData.address.address;
+    }
 
-  //   if (data.code === 0) {
-  //     commit("getDetailData", newData);
-  //   }
-  // },
+    if (data.code === 0) {
+      commit("getDetailData", newData);
+    }
+  },
   //更新面试信息
 
-  // async updataInterView({ commit }, payload) {
-  //   console.log("获取面试详情", payload);
-  //   let data = await updataInterView(payload);
-  //   console.log("修改面试详情的数据", data);
-  // }
+  async updataInterView({ commit }, payload) {
+    console.log("获取面试详情", payload);
+    let data = await updataInterView(payload);
+    console.log("修改面试详情的数据", data);
+  }
 };
 
 function formatTime(time) {

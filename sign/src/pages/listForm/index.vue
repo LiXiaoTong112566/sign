@@ -23,7 +23,7 @@
            </li>
            <li>
                <span>取消提醒：</span>
-               
+               <span class="iconfont icon-kaiguanguan"></span>
            </li>
        </ul>
        <div class="btns">
@@ -33,6 +33,7 @@
     </div>
 </template>
 <script>
+import {mapState,mapActions,mapMutations} from "vuex";
 export default {
     props:{
        
@@ -49,13 +50,16 @@ export default {
 
     },
     methods:{
-
+        ...mapActions({
+            getInterViewDetailData:"signList/getInterViewDetailData"
+        }),
     },
     created(){
 
     },
     mounted(){
-
+        console.log("props",this.props)
+        this.getInterViewDetailData()
     }
 }
 </script>
@@ -73,6 +77,10 @@ export default {
   border-bottom: 1px solid #eee;
   display:flex;
   font-size: 15px;
+}
+li .icon-kaiguanguan{
+    line-height: 50rpx;
+    font-size: 100rpx;
 }
 li span{
     color:#ccc;
