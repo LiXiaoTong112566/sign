@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 10:10:14
- * @LastEditTime: 2019-08-09 16:24:50
+ * @LastEditTime: 2019-08-10 08:05:41
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -20,7 +20,7 @@
         <div class="address">{{item.address}}</div>
         <div class="time">
           <p>{{item.start_time}}</p>
-          <span>{{item.remind==="-1"?"未提醒":"已提醒"}}</span>
+          <span>{{item.remind===-1?"未提醒":"已提醒"}}</span>
         </div>
       </div>
       </div>
@@ -65,15 +65,12 @@ export default {
        console.log('11',this.dataList);
        this.getList(ind);
     },
+    
     jumpDetail(item){
       console.log("跳转到页面",item.id);
-    
       wx.navigateTo({
         url: `/pages/listForm/main?id=${item.id}`,
   })
-
-
-
 
 
     }
@@ -84,7 +81,6 @@ export default {
   },
   mounted() {
     this.getList()
-    
    
     
   }

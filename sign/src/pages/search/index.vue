@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 10:10:14
+ * @LastEditTime: 2019-08-09 22:22:20
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div>
     <div class="address">
@@ -22,6 +29,7 @@
 </template>
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import {throttle} from "@/utils/throttle";
 export default {
   props: {},
   components: {},
@@ -45,7 +53,7 @@ export default {
     }),
     changeFn() {
       //搜索的内容
-      console.log(this.addressValue);
+      console.log("搜索的内容",this.addressValue);
       this.getSuggestion(this.addressValue);
     },
     //点击把点击的地址传过去
@@ -58,7 +66,12 @@ export default {
     }
   },
   created() {},
-  mounted() {}
+  mounted() {
+    console.log(throttle);
+    this.getSuggestion=throttle(this.getSuggestion,2000)
+
+
+  }
 };
 </script>
 <style scoped lang="">

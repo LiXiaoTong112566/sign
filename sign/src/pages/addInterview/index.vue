@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 10:10:14
+ * @LastEditTime: 2019-08-09 23:52:00
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <form class="addInterviewBox" report-submit @submit="submit">
     <div class="header">面试信息</div>
@@ -381,3 +388,14 @@ export default {
   }
 }
 </style>
+
+
+
+ if (!/^1[3456789]\d{9}$/.test(this.current.phone)|| !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(this.current.phone)){
+    wx.showToast({
+          title: "请输入正确的手机号",
+          icon: "none",
+          duration: 2000
+        });
+ }
+     

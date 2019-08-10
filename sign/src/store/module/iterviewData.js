@@ -2,10 +2,14 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-08 10:29:51
- * @LastEditTime: 2019-08-09 16:59:33
+ * @LastEditTime: 2019-08-10 08:08:57
  * @LastEditors: Please set LastEditors
  */
-import { getInterViewDataService, getInterViewDetail } from "@/service/";
+import {
+  getInterViewDataService,
+  getInterViewDetail,
+  updataInterView
+} from "@/service/";
 const moment = require("moment");
 //模块的所有的状态
 const state = {
@@ -13,9 +17,8 @@ const state = {
   dataList: "",
   page: 1,
   pageSize: 10,
-  detailData:{
-    
-  }
+  detailData: {},
+  flag:"",
 };
 
 //模块内的同步的改变,改变数据的
@@ -33,9 +36,17 @@ const mutations = {
   },
   //获取面试详情的数据
 
-  getDetailData(state,payload){
-
-    state.detailData=payload;
+  getDetailData(state, payload) {
+    state.detailData = payload;
+    console.log("41hang............", state.detailData);
+    if(payload.remind===1){
+      console.log("true")
+      state.flag=true;
+    }else{
+      console.log("false");
+      state.flag=false;
+    }
+  
 
   }
 };
@@ -50,16 +61,17 @@ const actions = {
       let result;
       params.page = state.page;
       params.pageSize = state.pageSize;
+      //如果点击的元素是全部
       if (state.active === 3) {
         result = await getInterViewDataService({
           page: params.page,
           pageSize: params.pageSize
         });
       } else {
-        params.status = state.active - 1;
+        params.status = state.active - 1;//定义他的状态
         result = await getInterViewDataService(params);
       }
-      console.log("32", result);
+     //判断address的值是不是string格式的对象
       result.data.forEach(item => {
         item.start_time = formatTime(item.start_time);
         if (item.address.includes("{")) {
@@ -68,25 +80,32 @@ const actions = {
           item.address = item.address.address;
         }
       });
+
       console.log("修改后数据", result.data);
       commit("getListData", result.data);
       resolve();
     });
   },
+  //获取面试详情的数据
+  async getInterViewDetailData({ commit }, payload) {
+    let data = await getInterViewDetail(payload);
+    let newData = data.data;
+    //判断address的数据是不是对象
+    if (newData.address.includes("{")) {
+      newData.address = JSON.parse(newData.address);
+      newData.address = newData.address.address;
+    }
+    if (data.code === 0) {
+      commit("getDetailData", newData);
+    }
+  },
 
+  //更新面试信息
 
-//获取面试详情的数据
- async getInterViewDetailData({commit},payload){
-   console.log("获取面试详情",payload);
-
-   let data= await  getInterViewDetail(payload);
-   console.log("获取面试详情的数据",data);
-   if(data.code===0){
-    commit("getDetailData",data.data);
-
-   }
-
-   
+  async updataInterView({ commit }, payload) {
+    console.log("获取面试详情", payload);
+    let data = await updataInterView(payload);
+    console.log("修改面试详情的数据", data);
   }
 };
 

@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-06 16:09:48
+ * @LastEditTime: 2019-08-10 07:41:04
+ * @LastEditors: Please set LastEditors
+ */
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
