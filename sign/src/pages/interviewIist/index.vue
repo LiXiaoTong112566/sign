@@ -50,16 +50,17 @@ export default {
       changeType:"signList/changeType"
     }),
     ...mapActions({
-      getList:"signList/getList"
+      getList:"signList/getList",
+      getInterViewDetailData:"signList/getInterViewDetailData"
     }),
     changeTitle(ind){
-      console.log(ind);
       this.changeType(ind);
        console.log('11',this.interviewList);
        this.getList(ind);
     },
     jumpDetail(item){
       console.log("跳转到页面",item.id);
+     this.getInterViewDetailData(item)
       wx.navigateTo({
         url: `/pages/listForm/main?id=${item.id}`,
       })

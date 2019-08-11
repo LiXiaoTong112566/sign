@@ -3,27 +3,33 @@
        <ul>
            <li>
                <span>面试地址：</span>
-               <input type="text" value="北京市海淀区上地软件园南路57号">
+               <div>
+                   {{detailData.address}}
+               </div>
            </li>
            <li>
                <span>面试时间：</span>
-               <input type="text" value="2019-08-06 17:00">
+               <div>
+                   {{detailData.start_time}}
+               </div>
            </li>
            <li>
                <span>联系方式：</span>
-               <input type="text" value="15532568521">
+               <div>
+                  {{detailData.phone}}
+               </div>
            </li>
            <li>
                <span>是否提醒：</span>
-               <div>未提醒</div>
+               <div>{{detailData.remind?'未提醒':'已提醒'}}</div>
            </li>
            <li>
                <span>面试状态：</span>
-               <div>未开启</div>
+               <div>{{detailData.status?detailData.status==1?'已放弃':'未开始':'已打卡'}}</div>
            </li>
            <li>
                <span>取消提醒：</span>
-               <span class="iconfont icon-kaiguanguan"></span>
+               <span class="iconfont icon-kaiguanguan" ></span>
            </li>
        </ul>
        <div class="btns">
@@ -47,18 +53,22 @@ export default {
         }
     },
     computed:{
-
+         ...mapState({
+            detailData:state=>state.signList.detailData,
+            
+        }),
     },
     methods:{
+       
         ...mapActions({
             getInterViewDetailData:"signList/getInterViewDetailData"
         }),
+        
     },
     created(){
 
     },
     mounted(){
-        console.log("props",this.props)
         this.getInterViewDetailData()
     }
 }
@@ -78,6 +88,12 @@ export default {
   display:flex;
   font-size: 15px;
 }
+li div{
+    flex:1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 li .icon-kaiguanguan{
     line-height: 50rpx;
     font-size: 100rpx;
@@ -86,10 +102,7 @@ li span{
     color:#ccc;
     padding-left:5px;
 }
-.address input{
-  height:100%;
-  margin-left:10px;
-}
+
 .btns{
     display:flex;
     justify-content: space-between;

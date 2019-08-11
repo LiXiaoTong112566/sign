@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mapimg">
     <map
       id="map"
       show-location
@@ -9,9 +9,9 @@
     ></map>
     <cover-view class="location" @click="location">
        <button class="iconfont icon-dingwei"></button>
-    </cover-view>
+     </cover-view>
     <navigator url="/pages/personal/main">
-       <div class="iconfont icon-04f"></div>
+       <div class="user"><img src="../../img/users.png" alt=""></div>
     </navigator>
     <navigator url="/pages/addInterview/main">
         <div class="footer">添加面试</div>
@@ -45,9 +45,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mapimg{
+     width: 100%;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+}
 map{
-  width: 100%;
-  height: 100%;
+  width:100%;
+  flex:1;
 }
 .location{
   position: fixed;
@@ -64,12 +70,15 @@ map{
     font-size: 30px;
   }
 }
-.icon-04f{
+.user{
    position: fixed;
    right:30rpx;
    bottom:100rpx;
-   font-size: 30px;
-   color:blue;
+   >img{
+     display: inline-block;
+     width:30px;
+     height:30px;
+   }
 }
 .footer{
    position: fixed;
