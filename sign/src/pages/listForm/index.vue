@@ -25,16 +25,16 @@
            </li>
            <li>
                <span>面试状态：</span>
-               <div>{{detailData.status?detailData.status==1?'已放弃':'未开始':'已打卡'}}</div>
+               <div>{{detailData.status==-1?'未开始':detailData.status==0?'已打卡': '已放弃'}}</div>
            </li>
            <li>
                <span>取消提醒：</span>
-               <span class="iconfont icon-kaiguanguan" ></span>
+                <switch :checked="detailData.remind===1" @change="cancelRemind" />
            </li>
        </ul>
-       <div class="btns">
-           <button style="background:blue">去打卡</button>
-           <button style="background:#BE0000">放弃面试</button>
+       <div class="btns" v-if="detailData.status==-1 ">
+           <button style="background:blue" @click="goPunch">去打卡</button>
+           <button style="background:#BE0000" @click="giveInterview">放弃面试</button>
        </div>
     </div>
 </template>
@@ -54,22 +54,50 @@ export default {
     },
     computed:{
          ...mapState({
-            detailData:state=>state.signList.detailData,
-            
+            detailData:state=>state.signList.detailData, 
         }),
+       
     },
     methods:{
-       
         ...mapActions({
-            getInterViewDetailData:"signList/getInterViewDetailData"
+            getInterViewDetailData:"signList/getInterViewDetailData",
+            updataInterView:"signList/updataInterView"
         }),
-        
+        cancelRemind(e){
+             //-1表示未提醒，0表示已提醒，1表示取消提醒
+            // 取消提醒
+            let id = this.detailData.id;
+            console.log(id, e.target.value?1:-1)
+            this.updataInterView({
+                id,
+                remind: e.target.value?1:-1
+            })
+        },
+        goPunch(){
+            console.log("打卡")
+        },
+        giveInterview(){
+             wx.showModal({
+                title: '温馨提示', //提示的标题,
+                content: '确定要放弃本次面试吗?', //提示的内容,
+                success: async res => {
+                if (res.confirm) {
+                    await this.updataInterView({
+                        id: this.detailData.id,
+                        status: 1
+                    })
+                }
+                }
+            });
+        }
     },
     created(){
 
     },
     mounted(){
         this.getInterViewDetailData()
+        
+    
     }
 }
 </script>
@@ -94,10 +122,7 @@ li div{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-li .icon-kaiguanguan{
-    line-height: 50rpx;
-    font-size: 100rpx;
-}
+
 li span{
     color:#ccc;
     padding-left:5px;

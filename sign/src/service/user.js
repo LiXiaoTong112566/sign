@@ -32,6 +32,7 @@ export let getInterViewDetail= code=>{
   
 //更新面试信息
 export let updataInterView= code=>{
+    //console.log(code,"修改熟剧")
     let newCode=Object.assign({},code);
     delete code.id;
     return fly.put(`/sign/${newCode.id}`,code);
@@ -39,5 +40,5 @@ export let updataInterView= code=>{
 
 //指纹认证接口
 export let fingerPrint = params =>{
-    return fly.post("/user/fingerPrint", {params})
+    return fly.post("/user/fingerPrint", params)
 }

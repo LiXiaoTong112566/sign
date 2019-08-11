@@ -22,6 +22,7 @@
 </template>
 <script>
 import {mapState,mapActions} from "vuex";
+import {throttle} from "@/utils/throttle.js"
 
 export default {
     props:{
@@ -59,7 +60,7 @@ export default {
        
     },
     mounted(){
-       
+       this.getaddress=throttle(this.getaddress,2000)
     }
 }
 </script>

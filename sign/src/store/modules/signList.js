@@ -27,6 +27,7 @@ const mutations = {
   //获取面试详情的数据
   getDetailData(state, payload) {
     console.log("111111",payload)
+    payload.start_time = formatTime(payload.start_time);
     state.detailData = payload;
    
   }
@@ -66,9 +67,9 @@ const actions = {
   },
   //获取面试详情的数据
   async getInterViewDetailData({ commit }, payload) {
-    console.log("获取面试详情12", payload);
+    //console.log("获取面试详情12", payload);
     let data = await getInterViewDetail(payload.id);
-    console.log("获取面试详情的数据", data);
+    //console.log("获取面试详情的数据", data);
     let newData = data.data;
     //判断address的数据是不是对象
     if (newData.address.includes("{")) {
@@ -81,11 +82,11 @@ const actions = {
     }
   },
   //更新面试信息
-  // async updataInterView({ commit }, payload) {
-  //   console.log("获取面试详情", payload);
-  //   let data = await updataInterView(payload);
-  //   console.log("修改面试详情的数据", data);
-  // }
+  async updataInterView({ commit }, payload) {
+    console.log("updata面试详情", payload);
+    let data = await updataInterView(payload);
+    console.log("修改面试详情的数据", data);
+  }
 };
 
 function formatTime(time) {
