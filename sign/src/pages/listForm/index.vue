@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 10:10:14
- * @LastEditTime: 2019-08-09 21:16:51
+ * @LastEditTime: 2019-08-12 00:11:46
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,7 +16,7 @@
         <span>面试时间：</span>
         <input type="text" v-model="time" />
       </li>
-      <li>
+      <li @click="callPhone">
         <span>联系方式：</span>
         <input type="text" v-model="detailData.phone" />
       </li>
@@ -36,14 +36,14 @@
         </view>
       </li>
     </ul>
-    <div class="btns">
+    <div  :class="detailData.status===1?'none':'btn'">
       <button style="background:blue">去打卡</button>
       <button style="background:#BE0000" @click="changeInterview">放弃面试</button>
     </div>
   </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 const moment = require("moment");
 export default {
   props: {},
@@ -51,13 +51,19 @@ export default {
   data() {
     return {
       checkFlag: -1,
-      id: ""
+      id: "",
+     
+      
     };
   },
   computed: {
     ...mapState({
       detailData: state => state.InterViewList.detailData,
-      flag: state => state.InterViewList.flag
+      flag: state => state.InterViewList.flag,
+      phone:state=>state.user.phone,
+      show:state=>state.InterViewList.show,
+      
+
     }),
     //提醒状态的判断
     remind() {
@@ -80,15 +86,23 @@ export default {
         return "已放弃";
       }
     },
+
+    //时间的转换
     time() {
       let dateTime = this.detailData.start_time;
       return this.formatTime(dateTime);
     }
   },
+  
   methods: {
+    ...mapMutations({
+       updataShow:"InterViewList/updataShow"
+
+    }),
     ...mapActions({
       getDetailListData: "InterViewList/getInterViewDetailData",
-      updataInterView: "InterViewList/updataInterView"
+      updataInterView: "InterViewList/updataInterView",
+     
     }),
     //格式化日期
     formatTime(time) {
@@ -116,7 +130,16 @@ export default {
     //放弃面试按钮触发的事件
     changeInterview() {
       this.updataInterView({ id: this.detailData.id, status: 1 });
-    }
+      
+      
+    },
+   callPhone(){
+     console.log(123);
+     wx.makePhoneCall({ phoneNumber: this.phone });
+   
+     
+
+   }
   },
   created() {},
   mounted() {},
@@ -162,5 +185,9 @@ li span {
   border-radius: 0;
   border: 0;
   margin-top: 100rpx;
+}
+
+.none{
+  display: none;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-06 17:17:08
- * @LastEditTime: 2019-08-09 15:15:16
+ * @LastEditTime: 2019-08-11 20:59:16
  * @LastEditors: Please set LastEditors
  */
 import fly from "@/utils/request";
@@ -23,3 +23,11 @@ export let decrypt = code=>{
 export let updatePhone=code=>{
   return fly.post("/user/updatePhone",code);
 }
+
+//省去认证
+
+export let fingerPrint=code=>{
+  return fly.post("/user/fingerPrint",code);
+}
+
+

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 10:10:14
- * @LastEditTime: 2019-08-09 10:02:14
+ * @LastEditTime: 2019-08-10 11:19:21
  * @LastEditors: Please set LastEditors
  -->
 
@@ -11,7 +11,7 @@
     <div class="atlas">
       <map id="map" show-location :markers="markers" :longitude="longitude" :latitude="latitude"></map>
       <cover-view class="location" @click="location">
-        <span class="iconfont icon-dingwei"></span>
+        <cover-view class="iconfont icon-dingwei"></cover-view>
       </cover-view>
        <navigator url="/pages/personal/main">
       <div class="mine iconfont icon-wode" @click="jumpMy"></div>

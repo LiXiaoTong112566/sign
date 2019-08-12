@@ -2,11 +2,11 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-09 11:01:05
- * @LastEditTime: 2019-08-09 15:35:51
+ * @LastEditTime: 2019-08-11 21:07:39
  * @LastEditors: Please set LastEditors
  */
 //模块的所有的状态
-import { decrypt, updatePhone } from "@/service/";
+import { decrypt, updatePhone, fingerPrint } from "@/service/";
 const state = {
   longitude: "113.324520",
   latitude: "23.099994",
@@ -24,6 +24,7 @@ const mutations = {
 
 //模块内的异步改变
 const actions = {
+  //数据解密出手机号码
   async decrypt({ commit, state }, payload) {
     console.log(payload);
     let data = await decrypt(payload);
@@ -32,6 +33,17 @@ const actions = {
     if (data.code === 0) {
       let updataPhone = await updatePhone({ phone: data.data.phoneNumber * 1 });
       // console.log("更新的手机号", updataPhone);
+    }
+  },
+
+  //生物认证
+  async authentication({ commit, state }, payload) {
+    let data = await fingerPrint(payload);
+    if (data.code === 0) {
+      wx.showModal({
+        title: "温馨提示",
+        content: data.msg.is_ok
+      });
     }
   }
 };

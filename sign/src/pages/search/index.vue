@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 10:10:14
- * @LastEditTime: 2019-08-09 22:22:20
+ * @LastEditTime: 2019-08-10 09:04:19
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -69,7 +69,6 @@ export default {
   mounted() {
     console.log(throttle);
     this.getSuggestion=throttle(this.getSuggestion,2000)
-
 
   }
 };

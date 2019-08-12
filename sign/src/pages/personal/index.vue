@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 10:10:14
- * @LastEditTime: 2019-08-09 15:38:20
+ * @LastEditTime: 2019-08-11 20:56:45
  * @LastEditors: Please set LastEditors
 
  -->
@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getDecrypt: "user/decrypt"
+      getDecrypt: "user/decrypt",
+      authentication:"user/authentication",
     }),
     getphonenumber(e) {
       console.log("获取手机号码", e);
@@ -78,7 +79,21 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    wx.startSoterAuthentication({
+      requestAuthModes: ["fingerPrint"],
+      challenge: "123456",
+      authContent: "请用指纹解锁",
+      success(res) {
+        console.log(res);
+        this.authentication({
+          openid: openid,
+          json_string: res.resultJSON,
+          json_signature: res.resultJSONSignature
+        });
+      }
+    });
+  },
   mounted() {}
 };
 </script>
