@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-08 10:29:51
- * @LastEditTime: 2019-08-12 00:21:47
+ * @LastEditTime: 2019-08-12 09:50:38
  * @LastEditors: Please set LastEditors
  */
 import {
@@ -106,16 +106,19 @@ const actions = {
         console.log("页数为1返回的数据", result.data);
         commit("getListData", result.data);
       } else {
+        console.log("列表的数据",...state.dataList);
+        console.log("新请求回来的数据",...result.data);
         console.log("合并后的数据", [...state.dataList, ...result.data]);
         commit("getListData", [...state.dataList, ...result.data]);
       }
       resolve();
     });
   },
+  
+
   //获取面试详情的数据
   async getInterViewDetailData({ commit }, payload) {
     let data = await getInterViewDetail(payload);
-    
     let newData = data.data;
   console.log(newData);
  
@@ -130,7 +133,6 @@ const actions = {
   },
 
   //更新面试信息
-
   async updataInterView({ commit,dispatch }, payload) {
     let data = await updataInterView(payload);
     console.log("data状态",data);
